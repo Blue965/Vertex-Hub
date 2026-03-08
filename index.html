@@ -1430,16 +1430,16 @@ transition:all 0.2s;
     </div>
     <div class="login-box">
       <div class="login-field">
-        <label class="login-label">Pseudo Roblox</label>
-        <input class="login-input" id="robloxUser" placeholder="Ton pseudo Roblox..." type="text" autocomplete="off">
+        <label class="login-label" data-i18n="login_pseudo">Pseudo Roblox</label>
+        <input class="login-input" id="robloxUser" placeholder="Ton pseudo Roblox..." data-i18n-placeholder="login_pseudo_ph" type="text" autocomplete="off">
       </div>
       <div class="login-field">
-        <label class="login-label">Mot de passe Vertex Hub</label>
-        <input class="login-input" id="robloxPass" placeholder="Crée ou entre ton mot de passe..." type="password">
+        <label class="login-label" data-i18n="login_pass">Mot de passe Vertex Hub</label>
+        <input class="login-input" id="robloxPass" placeholder="Crée ou entre ton mot de passe..." data-i18n-placeholder="login_pass_ph" type="password">
       </div>
-      <button class="login-btn" id="loginBtn" onclick="loginHub()">Entrer dans le Hub</button>
+      <button class="login-btn" id="loginBtn" onclick="loginHub()" data-i18n="login_btn">Entrer dans le Hub</button>
       <div id="loginStatus" style="display:none;text-align:center;margin-top:12px;font-size:13px;font-family:'JetBrains Mono',monospace;color:var(--muted);letter-spacing:1px;"></div>
-      <p class="login-note">⚠️ N'entre jamais ton vrai mot de passe Roblox</p>
+      <p class="login-note" data-i18n="login_note">⚠️ N'entre jamais ton vrai mot de passe Roblox</p>
     </div>
   </div>
 </div>
@@ -1491,22 +1491,22 @@ transition:all 0.2s;
           <div class="profile-dd-avatar" id="ddAvatar">?</div>
           <div>
             <div class="profile-dd-name" id="ddName">—</div>
-            <div class="profile-dd-sub">Membre Vertex Hub</div>
+            <div class="profile-dd-sub" data-i18n="dd_member">Membre Vertex Hub</div>
           </div>
         </div>
         <div class="profile-dd-divider"></div>
         <button class="profile-dd-item" onclick="openProfile();closeProfileDropdown()">
-          <span>👤</span> Mon profil Roblox
+          <span>👤</span> <span data-i18n="dd_profile">Mon profil Roblox</span>
         </button>
         <button class="profile-dd-item" onclick="openMyListings();closeProfileDropdown()">
-          <span>🛒</span> Mes annonces UGC
+          <span>🛒</span> <span data-i18n="dd_listings">Mes annonces UGC</span>
         </button>
         <button class="profile-dd-item" onclick="openMyTrades();closeProfileDropdown()">
-          <span>🔄</span> Historique échanges
+          <span>🔄</span> <span data-i18n="dd_history">Historique échanges</span>
         </button>
         <div class="profile-dd-divider"></div>
         <button class="profile-dd-item profile-dd-logout" onclick="logoutHub()">
-          <span>🚪</span> Quitter
+          <span>🚪</span> <span data-i18n="btn_quit">Quitter</span>
         </button>
       </div>
     </div>
@@ -1518,14 +1518,14 @@ transition:all 0.2s;
     <!-- ══ MARCHÉ UGC ══ -->
     <div class="tab-panel active" id="panel-market">
       <div class="section-head">
-        <div class="section-title">Marché UGC</div>
-        <div class="section-sub">Achète et revends tes UGC Roblox avec la communauté</div>
+        <div class="section-title" data-i18n="market_title">Marché UGC</div>
+        <div class="section-sub" data-i18n="market_sub">Achète et revends tes UGC Roblox avec la communauté</div>
       </div>
 
       <div class="market-toolbar">
-        <input class="search-box" id="searchUgc" placeholder="Rechercher un UGC..." oninput="renderMarket()">
+        <input class="search-box" id="searchUgc" placeholder="Rechercher un UGC..." data-i18n-placeholder="market_search" oninput="renderMarket()">
         <div class="custom-select" id="cs-filterCat">
-          <div class="cs-selected" onclick="csToggle('cs-filterCat')">Toutes catégories</div>
+          <div class="cs-selected" onclick="csToggle('cs-filterCat')" data-i18n="cat_all">Toutes catégories</div>
           <div class="cs-arrow"><svg width="10" height="6" viewBox="0 0 10 6"><path d="M1 1l4 4 4-4"/></svg></div>
           <div class="cs-list">
             <div class="cs-option active" data-value="all" onclick="csSelect('cs-filterCat','all','Toutes catégories',renderMarket)">🏷️ Toutes catégories</div>
@@ -1544,21 +1544,21 @@ transition:all 0.2s;
             <div class="cs-option" data-value="price-desc" onclick="csSelect('cs-filterSort','price-desc','Prix décroissant',renderMarket)">📉 Prix décroissant</div>
           </div>
         </div>
-        <button class="btn btn-orange" onclick="toggleAddListing()">+ Vendre un UGC</button>
+        <button class="btn btn-orange" onclick="toggleAddListing()" data-i18n="market_sell_btn">+ Vendre un UGC</button>
       </div>
 
       <!-- ADD LISTING -->
       <div class="add-listing" id="addListing">
-        <div class="add-listing-title">➕ Mettre en vente</div>
+        <div class="add-listing-title" data-i18n="market_form_title">➕ Mettre en vente</div>
 
         <!-- STEP 1: ID lookup -->
         <div id="ugcStep1">
           <div class="form-group">
-            <label class="form-label">🔍 ID de ton UGC Roblox</label>
+            <label class="form-label" data-i18n="market_id_label">🔍 ID de ton UGC Roblox</label>
             <div style="display:flex;gap:8px;align-items:center;">
               <input class="form-input" id="ugcIdInput" placeholder="ID ou URL roblox.com/catalog/..." type="text" style="flex:1;"
                 onkeydown="if(event.key==='Enter') fetchUGC()">
-              <button class="btn btn-orange" onclick="fetchUGC()" id="fetchBtn">Rechercher</button>
+              <button class="btn btn-orange" onclick="fetchUGC()" id="fetchBtn" data-i18n="market_search_btn">Rechercher</button>
             </div>
             <div style="font-size:11px;color:var(--muted);margin-top:6px;font-family:'JetBrains Mono',monospace;">
               💡 Trouve l'ID dans l'URL du catalog Roblox : roblox.com/catalog/<b style="color:var(--orange)">11547791</b>/item-name
@@ -1583,8 +1583,8 @@ transition:all 0.2s;
             </div>
           </div>
           <div style="display:flex;gap:10px;margin-top:14px;">
-            <button class="btn btn-orange" onclick="addListing()">📤 Publier l'annonce</button>
-            <button class="btn btn-ghost" onclick="resetUgcForm()">↩ Changer d'UGC</button>
+            <button class="btn btn-orange" onclick="addListing()" data-i18n="market_publish_btn">📤 Publier l'annonce</button>
+            <button class="btn btn-ghost" onclick="resetUgcForm()" data-i18n="market_change_ugc">↩ Changer d'UGC</button>
             <button class="btn btn-ghost" onclick="toggleAddListing()">Annuler</button>
           </div>
         </div>
@@ -1603,15 +1603,15 @@ transition:all 0.2s;
     <!-- ══ GFX IA ══ -->
     <div class="tab-panel" id="panel-gfx">
       <div class="section-head">
-        <div class="section-title">Générateur GFX IA</div>
-        <div class="section-sub">Génère des prompts optimisés pour tes créations Roblox</div>
+        <div class="section-title" data-i18n="gfx_title">Générateur GFX IA</div>
+        <div class="section-sub" data-i18n="gfx_sub">Génère des prompts optimisés pour tes créations Roblox</div>
       </div>
 
       <div class="gfx-layout">
         <!-- CONTROLS -->
         <div>
           <div class="gfx-panel">
-            <div class="gfx-panel-title">🎨 Style</div>
+            <div class="gfx-panel-title" data-i18n="gfx_style">🎨 Style</div>
             <div class="style-grid" id="styleGrid">
               <button class="style-btn selected" onclick="selectStyle(this,'action combat dynamic fire explosion')">🔥 Action</button>
               <button class="style-btn" onclick="selectStyle(this,'cinematic epic dramatic lighting god rays')">🎬 Cinéma</button>
@@ -1623,9 +1623,9 @@ transition:all 0.2s;
           </div>
 
           <div class="gfx-panel" style="margin-top:16px;">
-            <div class="gfx-panel-title">✏️ Description</div>
+            <div class="gfx-panel-title" data-i18n="gfx_description">✏️ Description</div>
             <div class="form-group">
-              <label class="form-label">Type de GFX</label>
+              <label class="form-label" data-i18n="gfx_type_label">Type de GFX</label>
               <select class="form-select" id="gfxType">
                 <option>Thumbnail de jeu</option>
                 <option>GFX personnage</option>
@@ -1635,36 +1635,36 @@ transition:all 0.2s;
               </select>
             </div>
             <div class="form-group" style="margin-top:12px;">
-              <label class="form-label">Ta description</label>
-              <textarea class="form-input" id="gfxDesc" rows="3" placeholder="ex: guerrier debout sur un toit en feu la nuit..."></textarea>
+              <label class="form-label" data-i18n="gfx_desc_label">Ta description</label>
+              <textarea class="form-input" id="gfxDesc" rows="3" placeholder="ex: guerrier debout sur un toit en feu la nuit..." data-i18n-placeholder="gfx_desc_ph"></textarea>
             </div>
             <div class="form-group" style="margin-top:12px;">
-              <label class="form-label">Clé Groq (gratuit)</label>
+              <label class="form-label" data-i18n="gfx_key_label">Clé Groq (gratuit)</label>
               <input class="form-input" type="password" id="groqKeyInput" placeholder="gsk_...">
             </div>
             <button class="btn btn-orange" style="width:100%;justify-content:center;margin-top:14px;" onclick="generateGFX()">
-              ⚡ Générer le prompt
+              <span data-i18n="gfx_generate_btn">⚡ Générer le prompt</span>
             </button>
           </div>
         </div>
 
         <!-- RESULT -->
         <div class="gfx-panel">
-          <div class="gfx-panel-title">✨ Résultat</div>
+          <div class="gfx-panel-title" data-i18n="gfx_result_title">✨ Résultat</div>
           <div class="gfx-result" id="gfxResult">
             <div class="gfx-placeholder" id="gfxPlaceholder">
               <div class="gfx-placeholder-icon">🎨</div>
-              <div class="gfx-placeholder-text">Configure et génère ton prompt</div>
+              <div class="gfx-placeholder-text" data-i18n="gfx_placeholder_text">Configure et génère ton prompt</div>
             </div>
             <div class="gfx-loading" id="gfxLoading">
               <div class="gfx-spinner"></div>
-              <div class="gfx-loading-text">Génération en cours...</div>
+              <div class="gfx-loading-text" data-i18n="gfx_loading">Génération en cours...</div>
             </div>
           </div>
           <div class="prompt-result" id="promptResult">
-            <div class="prompt-label">📋 Prompt généré — colle dans Leonardo.ai</div>
+            <div class="prompt-label" data-i18n="gfx_prompt_label">📋 Prompt généré — colle dans Leonardo.ai</div>
             <div id="promptText"></div>
-            <button class="copy-btn" onclick="copyPrompt()">📋 Copier le prompt</button>
+            <button class="copy-btn" onclick="copyPrompt()" data-i18n="gfx_copy_btn">📋 Copier le prompt</button>
           </div>
         </div>
       </div>
@@ -1673,8 +1673,8 @@ transition:all 0.2s;
     <!-- ══ OUTILS ══ -->
     <div class="tab-panel" id="panel-tools">
       <div class="section-head">
-        <div class="section-title">Outils Roblox</div>
-        <div class="section-sub">Calculateurs et outils utiles pour les joueurs Roblox</div>
+        <div class="section-title" data-i18n="tools_title">Outils Roblox</div>
+        <div class="section-sub" data-i18n="tools_sub">Calculateurs et outils utiles pour les joueurs Roblox</div>
       </div>
 
       <div class="tools-grid">
@@ -1682,8 +1682,8 @@ transition:all 0.2s;
         <!-- CALCULATEUR ROBUX → EUR -->
         <div class="tool-card">
           <div class="tool-icon">💰</div>
-          <div class="tool-name">Robux → Euros</div>
-          <div class="tool-desc">Convertis des Robux en euros selon le taux officiel Roblox</div>
+          <div class="tool-name" data-i18n="tools_robux_eur">Robux → Euros</div>
+          <div class="tool-desc" data-i18n="tools_robux_eur_desc">Convertis des Robux en euros selon le taux officiel Roblox</div>
           <div class="calc-row">
             <input class="calc-input" id="robuxAmount" placeholder="Robux" type="number" min="0" oninput="calcRobuxToEur()">
             <span style="color:var(--muted);font-size:18px;">→</span>
@@ -1695,8 +1695,8 @@ transition:all 0.2s;
         <!-- CALCULATEUR EUR → ROBUX -->
         <div class="tool-card">
           <div class="tool-icon">💶</div>
-          <div class="tool-name">Euros → Robux</div>
-          <div class="tool-desc">Calcule combien de Robux tu obtiens pour un budget en euros</div>
+          <div class="tool-name" data-i18n="tools_eur_robux">Euros → Robux</div>
+          <div class="tool-desc" data-i18n="tools_eur_robux_desc">Calcule combien de Robux tu obtiens pour un budget en euros</div>
           <div class="calc-row">
             <input class="calc-input" id="eurAmount" placeholder="Euros" type="number" min="0" oninput="calcEurToRobux()">
             <span style="color:var(--muted);font-size:18px;">→</span>
@@ -1708,8 +1708,8 @@ transition:all 0.2s;
         <!-- CALCULATEUR DEV EXCHANGE -->
         <div class="tool-card">
           <div class="tool-icon">📈</div>
-          <div class="tool-name">DevEx Calculator</div>
-          <div class="tool-desc">Combien tu gagnes en retirant tes Robux via le Developer Exchange</div>
+          <div class="tool-name" data-i18n="tools_devex">DevEx Calculator</div>
+          <div class="tool-desc" data-i18n="tools_devex_desc">Combien tu gagnes en retirant tes Robux via le Developer Exchange</div>
           <div class="calc-row">
             <input class="calc-input" id="devexAmount" placeholder="Robux à retirer" type="number" min="0" oninput="calcDevex()">
           </div>
@@ -1720,8 +1720,8 @@ transition:all 0.2s;
         <!-- CALCULATEUR % COMMISSION UGC -->
         <div class="tool-card">
           <div class="tool-icon">🏷️</div>
-          <div class="tool-name">Commission UGC</div>
-          <div class="tool-desc">Calcule ce que tu reçois après les 30% de commission Roblox</div>
+          <div class="tool-name" data-i18n="tools_commission">Commission UGC</div>
+          <div class="tool-desc" data-i18n="tools_commission_desc">Calcule ce que tu reçois après les 30% de commission Roblox</div>
           <div class="calc-row">
             <input class="calc-input" id="ugcSalePrice" placeholder="Prix de vente (R$)" type="number" min="0" oninput="calcUgcCommission()">
           </div>
@@ -1763,14 +1763,14 @@ transition:all 0.2s;
     <!-- ══ ÉCHANGES ══ -->
     <div class="tab-panel" id="panel-trade">
       <div class="section-head">
-        <div class="section-title">Échanges UGC</div>
+        <div class="section-title" data-i18n="trade_title">Échanges UGC</div>
         <div class="section-sub">Propose tes UGC en échange de Robux ou d'autres UGC</div>
       </div>
 
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:24px;">
         <!-- PROPOSER UN ÉCHANGE -->
         <div class="gfx-panel">
-          <div class="gfx-panel-title">➕ Proposer un échange</div>
+          <div class="gfx-panel-title" data-i18n="trade_offer_title">➕ Proposer un échange</div>
           <div class="form-group">
             <label class="form-label">Tu offres (ton UGC)</label>
             <input class="form-input" id="tradeOfferItem" placeholder="ex: 🎩 Flames Cap">
@@ -1836,8 +1836,8 @@ transition:all 0.2s;
     <!-- ══ GUIDE ══ -->
     <div class="tab-panel" id="panel-guide">
       <div class="section-head" style="margin-top:0;padding-top:0;">
-        <div class="section-title">Comment ça marche</div>
-        <div class="section-sub">Tout ce que tu dois savoir pour utiliser Vertex Hub</div>
+        <div class="section-title" data-i18n="guide_title">Comment ça marche</div>
+        <div class="section-sub" data-i18n="guide_sub">Tout ce que tu dois savoir pour utiliser Vertex Hub</div>
       </div>
 
       <!-- STEPS INTRO -->
@@ -2138,24 +2138,24 @@ transition:all 0.2s;
     <div class="tab-panel" id="panel-auction">
       <div class="section-head">
         <div>
-          <div class="section-title">🔨 Enchères Live</div>
-          <div class="section-sub">Mets tes UGC aux enchères — paiement via Game Pass officiel Roblox</div>
+          <div class="section-title" data-i18n="auction_title">🔨 Enchères Live</div>
+          <div class="section-sub" data-i18n="auction_sub">Mets tes UGC aux enchères — paiement via Game Pass officiel Roblox</div>
         </div>
-        <button class="btn btn-orange" onclick="toggleAuctionForm()" id="auctionFormToggle">+ Créer une enchère</button>
+        <button class="btn btn-orange" onclick="toggleAuctionForm()" id="auctionFormToggle" data-i18n="auction_create_btn">+ Créer une enchère</button>
       </div>
 
       <!-- Form -->
       <div class="auction-form" id="auctionForm">
-        <div class="auction-form-title">🔨 Nouvelle Enchère</div>
+        <div class="auction-form-title" data-i18n="auction_form_title">🔨 Nouvelle Enchère</div>
 
         <!-- Step 1: ID UGC -->
         <div id="auctionStep1">
           <div class="form-group">
-            <label class="form-label">🔍 ID ou URL de ton UGC Roblox</label>
+            <label class="form-label" data-i18n="auction_ugc_label">🔍 ID ou URL de ton UGC Roblox</label>
             <div style="display:flex;gap:8px;">
               <input class="form-input" id="auctionUgcInput" placeholder="ex: 11547791 ou URL roblox.com/catalog/..." style="flex:1;"
                 onkeydown="if(event.key==='Enter') fetchAuctionUGC()">
-              <button class="btn btn-orange" onclick="fetchAuctionUGC()" id="auctionFetchBtn">Rechercher</button>
+              <button class="btn btn-orange" onclick="fetchAuctionUGC()" id="auctionFetchBtn" data-i18n="market_search_btn">Rechercher</button>
             </div>
           </div>
           <div id="auctionFetchStatus" style="display:none;margin-top:8px;"></div>
@@ -2174,25 +2174,25 @@ transition:all 0.2s;
 
           <div class="auction-form-grid">
             <div class="form-group">
-              <label class="form-label">Prix de départ (R$)</label>
+              <label class="form-label" data-i18n="auction_start_label">Prix de départ (R$)</label>
               <input class="form-input" id="auctionStartPrice" type="number" min="1" placeholder="ex: 100">
             </div>
             <div class="form-group">
-              <label class="form-label">Mise min. par offre (R$)</label>
+              <label class="form-label" data-i18n="auction_minbid_label">Mise min. par offre (R$)</label>
               <input class="form-input" id="auctionMinBid" type="number" min="1" placeholder="ex: 10">
             </div>
             <div class="form-group">
-              <label class="form-label">Durée</label>
+              <label class="form-label" data-i18n="auction_duration_label">Durée</label>
               <select class="form-select" id="auctionDuration">
-                <option value="300">5 minutes</option>
-                <option value="600">10 minutes</option>
-                <option value="1800">30 minutes</option>
-                <option value="3600">1 heure</option>
-                <option value="86400">24 heures</option>
+                <option value="300" data-i18n="dur_5m">5 minutes</option>
+                <option value="600" data-i18n="dur_10m">10 minutes</option>
+                <option value="1800" data-i18n="dur_30m">30 minutes</option>
+                <option value="3600" data-i18n="dur_1h">1 heure</option>
+                <option value="86400" data-i18n="dur_24h">24 heures</option>
               </select>
             </div>
             <div class="form-group">
-              <label class="form-label">Lien Game Pass Roblox</label>
+              <label class="form-label" data-i18n="auction_gp_label">Lien Game Pass Roblox</label>
               <input class="form-input" id="auctionGamepass" placeholder="roblox.com/game-pass/...">
             </div>
           </div>
@@ -2200,7 +2200,7 @@ transition:all 0.2s;
             💡 Crée un Game Pass sur Roblox au prix final de l'enchère et envoie le lien au gagnant. Roblox prend 30% de commission.
           </div>
           <div style="display:flex;gap:10px;">
-            <button class="btn btn-orange" onclick="createAuction()">🔨 Lancer l'enchère</button>
+            <button class="btn btn-orange" onclick="createAuction()" data-i18n="auction_launch_btn">🔨 Lancer l'enchère</button>
             <button class="btn btn-ghost" onclick="toggleAuctionForm()">Annuler</button>
           </div>
         </div>
@@ -2312,7 +2312,7 @@ transition:all 0.2s;
         <div class="footer-logo-hex">V</div>
         Vertex <span>Hub</span>
       </div>
-      <div class="footer-copy">
+      <div class="footer-copy" data-i18n="footer_copy">
         &copy; <span id="footerYear">2025</span> Vertex Hub.<br>
         Tous droits réservés.
       </div>
@@ -2347,7 +2347,7 @@ transition:all 0.2s;
           <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M3.4 15.8L0 8.2 8.2 0l15.4 4.2-3.4 7.6L8.8 24 3.4 15.8zm5.5-8L7.1 11l2.8 4.6 4.4-1.1 1.8-3.3-2.8-4.5-4.4 1.1z"/></svg>
         </a>
       </div>
-      <div class="footer-tagline">The Roblox Community Platform</div>
+      <div class="footer-tagline" data-i18n="footer_tagline">The Roblox Community Platform</div>
     </div>
 
     <!-- RIGHT: langue + liens -->
@@ -3761,181 +3761,101 @@ function changeLang() {
 const TRANSLATIONS = {
   fr: {
     // Nav
-    nav_market: 'Marché UGC',
-    nav_gfx: 'GFX IA',
-    nav_tools: 'Outils',
-    nav_trade: 'Échanges',
-    nav_guide: 'Guide',
-    nav_chat: 'Chat',
-    nav_auction: 'Enchères',
+    nav_market:'Marché UGC', nav_gfx:'GFX IA', nav_tools:'Outils', nav_trade:'Échanges',
+    nav_guide:'Guide', nav_chat:'Chat', nav_auction:'Enchères',
+    // Login
+    login_pseudo:'Pseudo Roblox', login_pseudo_ph:'Ton pseudo Roblox...',
+    login_pass:'Mot de passe Vertex Hub', login_pass_ph:'Crée ou entre ton mot de passe...',
+    login_btn:'Entrer dans le Hub', login_note:"⚠️ N'entre jamais ton vrai mot de passe Roblox",
+    // Topbar dropdown
+    dd_member:'Membre Vertex Hub', dd_profile:'Mon profil Roblox',
+    dd_listings:'Mes annonces UGC', dd_history:'Historique échanges', btn_quit:'Quitter',
     // Market
-    market_title: 'Marché UGC',
-    market_sub: 'Achète et revends tes UGC Roblox avec la communauté',
-    market_search: 'Rechercher un UGC...',
-    market_sell_btn: '+ Vendre un UGC',
-    market_form_title: '➕ Mettre en vente',
-    market_id_label: '🔍 ID de ton UGC Roblox',
-    market_search_btn: 'Rechercher',
-    market_price_label: 'Prix de vente (Robux)',
-    market_publish_btn: "📤 Publier l'annonce",
-    market_cancel: 'Annuler',
-    market_contact: 'Contacter',
-    market_remove: 'Retirer',
-    market_empty: 'Aucun UGC en vente pour le moment',
+    market_title:'Marché UGC', market_sub:'Achète et revends tes UGC Roblox avec la communauté',
+    market_search:'Rechercher un UGC...', market_sell_btn:'+ Vendre un UGC',
+    market_form_title:'➕ Mettre en vente', market_id_label:'🔍 ID de ton UGC Roblox',
+    market_search_btn:'Rechercher', market_price_label:'Prix de vente (Robux)',
+    market_publish_btn:"📤 Publier l'annonce", market_change_ugc:"↩ Changer d'UGC",
+    cat_all:'Toutes catégories',
     // GFX
-    gfx_title: 'Générateur GFX IA',
-    gfx_sub: 'Génère des prompts optimisés pour tes créations Roblox',
-    gfx_type_thumb: 'Thumbnail',
-    gfx_type_banner: 'Bannière',
-    gfx_type_logo: 'Logo',
-    gfx_type_icon: 'Icône',
-    gfx_desc_label: 'Décris ton GFX',
-    gfx_desc_placeholder: 'ex: personnage Roblox avec épée de feu dans une forêt sombre...',
-    gfx_key_label: 'Clé Groq API',
-    gfx_key_placeholder: 'gsk_...',
-    gfx_generate_btn: '✨ Générer le prompt',
-    gfx_copy_btn: '📋 Copier le prompt',
-    gfx_placeholder_text: 'Ton prompt GFX apparaîtra ici',
+    gfx_title:'Générateur GFX IA', gfx_sub:'Génère des prompts optimisés pour tes créations Roblox',
+    gfx_style:'🎨 Style', gfx_description:'✏️ Description', gfx_result_title:'✨ Résultat',
+    gfx_type_label:'Type de GFX', gfx_desc_label:'Ta description',
+    gfx_desc_ph:'ex: guerrier debout sur un toit en feu la nuit...',
+    gfx_key_label:'Clé Groq (gratuit)', gfx_generate_btn:'⚡ Générer le prompt',
+    gfx_placeholder_text:'Configure et génère ton prompt', gfx_loading:'Génération en cours...',
+    gfx_prompt_label:'📋 Prompt généré — colle dans Leonardo.ai', gfx_copy_btn:'📋 Copier le prompt',
     // Tools
-    tools_title: 'Outils Roblox',
-    tools_sub: 'Calculateurs et utilitaires pour la communauté',
-    tools_robux_eur: 'Robux → Euros',
-    tools_eur_robux: 'Euros → Robux',
-    tools_devex: 'DevEx Calculator',
-    tools_commission: 'Commission UGC (30%)',
-    tools_timer: 'Minuteur de jeu',
-    tools_pseudo: 'Générateur de pseudos',
-    tools_convert_btn: 'Convertir',
-    tools_calc_btn: 'Calculer',
-    tools_start_btn: '▶ Démarrer',
-    tools_stop_btn: '⏸ Pause',
-    tools_reset_btn: '↺ Reset',
-    tools_generate_btn: 'Générer',
+    tools_title:'Outils Roblox', tools_sub:'Calculateurs et outils utiles pour les joueurs Roblox',
+    tools_robux_eur:'Robux → Euros', tools_robux_eur_desc:'Convertis des Robux en euros selon le taux officiel Roblox',
+    tools_eur_robux:'Euros → Robux', tools_eur_robux_desc:'Calcule combien de Robux tu obtiens pour un budget en euros',
+    tools_devex:'DevEx Calculator', tools_devex_desc:'Combien tu gagnes en retirant tes Robux via le Developer Exchange',
+    tools_commission:'Commission UGC', tools_commission_desc:'Calcule ce que tu reçois après les 30% de commission Roblox',
     // Trade
-    trade_title: 'Échanges UGC',
-    trade_sub: "Échange tes items contre des Robux ou d'autres UGC",
-    trade_offer_btn: '+ Proposer un échange',
-    trade_contact: 'Contacter',
-    trade_cancel: 'Annuler',
-    trade_empty: 'Aucun échange proposé',
+    trade_title:'Échanges UGC', trade_sub:'Échange tes items entre membres de la communauté',
+    trade_offer_title:'➕ Proposer un échange', trade_offer_btn:'+ Proposer un échange',
     // Guide
-    guide_title: 'Comment ça marche',
-    guide_sub: 'Tout ce que tu dois savoir pour utiliser Vertex Hub',
-    faq_title: 'FAQ',
-    faq_sub: 'Questions fréquentes',
-    // Chat
-    chat_title: '💬 Conversations',
-    chat_placeholder: 'Écris un message...',
-    chat_offer_btn: '💰 Offre',
-    chat_empty: 'Sélectionne une conversation',
-    chat_no_rooms: 'Clique sur un UGC pour démarrer une conversation',
+    guide_title:'Comment ça marche', guide_sub:'Tout ce que tu dois savoir pour utiliser Vertex Hub',
+    faq_title:'FAQ', faq_sub:'Questions fréquentes',
     // Auction
-    auction_title: '🔨 Enchères Live',
-    auction_sub: 'Mets tes UGC aux enchères — paiement via Game Pass officiel Roblox',
-    auction_create_btn: '+ Créer une enchère',
-    auction_bid_btn: '🔨 Enchérir',
-    auction_gamepass_btn: '🎮 Acheter le Game Pass',
-    auction_empty: 'Aucune enchère en cours',
-    auction_ended: '🔴 Terminée',
-    // Common
-    btn_quitter: 'Quitter',
-    filter_all: 'Tous',
-    filter_hat: 'Chapeau',
-    filter_face: 'Visage',
-    filter_acc: 'Accessoire',
-    filter_clothes: 'Vêtement',
-    sort_recent: 'Plus récent',
-    sort_price_asc: 'Prix croissant',
-    sort_price_desc: 'Prix décroissant',
+    auction_title:'🔨 Enchères Live', auction_sub:'Mets tes UGC aux enchères — paiement via Game Pass officiel Roblox',
+    auction_create_btn:'+ Créer une enchère', auction_form_title:'🔨 Nouvelle Enchère',
+    auction_ugc_label:'🔍 ID ou URL de ton UGC Roblox', auction_start_label:'Prix de départ (R$)',
+    auction_minbid_label:'Mise min. par offre (R$)', auction_duration_label:'Durée',
+    auction_gp_label:'Lien Game Pass Roblox', auction_launch_btn:"🔨 Lancer l'enchère",
+    dur_5m:'5 minutes', dur_10m:'10 minutes', dur_30m:'30 minutes', dur_1h:'1 heure', dur_24h:'24 heures',
+    // Footer
+    footer_tagline:'Le hub Roblox de la communauté RealBlue',
+    footer_copy:'© 2025 Vertex Hub — RealBlue Community',
   },
   en: {
     // Nav
-    nav_market: 'UGC Market',
-    nav_gfx: 'AI GFX',
-    nav_tools: 'Tools',
-    nav_trade: 'Trades',
-    nav_guide: 'Guide',
-    nav_chat: 'Chat',
-    nav_auction: 'Auctions',
+    nav_market:'UGC Market', nav_gfx:'AI GFX', nav_tools:'Tools', nav_trade:'Trades',
+    nav_guide:'Guide', nav_chat:'Chat', nav_auction:'Auctions',
+    // Login
+    login_pseudo:'Roblox Username', login_pseudo_ph:'Your Roblox username...',
+    login_pass:'Vertex Hub Password', login_pass_ph:'Create or enter your password...',
+    login_btn:'Enter the Hub', login_note:'⚠️ Never enter your real Roblox password here',
+    // Topbar dropdown
+    dd_member:'Vertex Hub Member', dd_profile:'My Roblox Profile',
+    dd_listings:'My UGC Listings', dd_history:'Trade History', btn_quit:'Leave',
     // Market
-    market_title: 'UGC Market',
-    market_sub: 'Buy and resell your Roblox UGC with the community',
-    market_search: 'Search a UGC...',
-    market_sell_btn: '+ Sell a UGC',
-    market_form_title: '➕ List for sale',
-    market_id_label: '🔍 Your Roblox UGC ID',
-    market_search_btn: 'Search',
-    market_price_label: 'Selling price (Robux)',
-    market_publish_btn: '📤 Publish listing',
-    market_cancel: 'Cancel',
-    market_contact: 'Contact',
-    market_remove: 'Remove',
-    market_empty: 'No UGC listed yet',
+    market_title:'UGC Market', market_sub:'Buy and resell your Roblox UGC with the community',
+    market_search:'Search a UGC...', market_sell_btn:'+ Sell a UGC',
+    market_form_title:'➕ List for sale', market_id_label:'🔍 Your Roblox UGC ID',
+    market_search_btn:'Search', market_price_label:'Selling price (Robux)',
+    market_publish_btn:'📤 Publish listing', market_change_ugc:'↩ Change UGC',
+    cat_all:'All categories',
     // GFX
-    gfx_title: 'AI GFX Generator',
-    gfx_sub: 'Generate optimized prompts for your Roblox creations',
-    gfx_type_thumb: 'Thumbnail',
-    gfx_type_banner: 'Banner',
-    gfx_type_logo: 'Logo',
-    gfx_type_icon: 'Icon',
-    gfx_desc_label: 'Describe your GFX',
-    gfx_desc_placeholder: 'ex: Roblox character with fire sword in a dark forest...',
-    gfx_key_label: 'Groq API Key',
-    gfx_key_placeholder: 'gsk_...',
-    gfx_generate_btn: '✨ Generate prompt',
-    gfx_copy_btn: '📋 Copy prompt',
-    gfx_placeholder_text: 'Your GFX prompt will appear here',
+    gfx_title:'AI GFX Generator', gfx_sub:'Generate optimized prompts for your Roblox creations',
+    gfx_style:'🎨 Style', gfx_description:'✏️ Description', gfx_result_title:'✨ Result',
+    gfx_type_label:'GFX Type', gfx_desc_label:'Your description',
+    gfx_desc_ph:'ex: warrior standing on a rooftop on fire at night...',
+    gfx_key_label:'Groq API Key (free)', gfx_generate_btn:'⚡ Generate prompt',
+    gfx_placeholder_text:'Configure and generate your prompt', gfx_loading:'Generating...',
+    gfx_prompt_label:'📋 Generated prompt — paste in Leonardo.ai', gfx_copy_btn:'📋 Copy prompt',
     // Tools
-    tools_title: 'Roblox Tools',
-    tools_sub: 'Calculators and utilities for the community',
-    tools_robux_eur: 'Robux → Euros',
-    tools_eur_robux: 'Euros → Robux',
-    tools_devex: 'DevEx Calculator',
-    tools_commission: 'UGC Commission (30%)',
-    tools_timer: 'Game Timer',
-    tools_pseudo: 'Username Generator',
-    tools_convert_btn: 'Convert',
-    tools_calc_btn: 'Calculate',
-    tools_start_btn: '▶ Start',
-    tools_stop_btn: '⏸ Pause',
-    tools_reset_btn: '↺ Reset',
-    tools_generate_btn: 'Generate',
+    tools_title:'Roblox Tools', tools_sub:'Calculators and utilities for Roblox players',
+    tools_robux_eur:'Robux → Euros', tools_robux_eur_desc:'Convert Robux to euros at the official Roblox rate',
+    tools_eur_robux:'Euros → Robux', tools_eur_robux_desc:'Calculate how many Robux you get for your budget',
+    tools_devex:'DevEx Calculator', tools_devex_desc:'How much you earn withdrawing Robux via Developer Exchange',
+    tools_commission:'UGC Commission', tools_commission_desc:'Calculate what you receive after 30% Roblox commission',
     // Trade
-    trade_title: 'UGC Trades',
-    trade_sub: 'Trade your items for Robux or other UGC',
-    trade_offer_btn: '+ Propose a trade',
-    trade_contact: 'Contact',
-    trade_cancel: 'Cancel',
-    trade_empty: 'No trades proposed yet',
+    trade_title:'UGC Trades', trade_sub:'Trade your items with community members',
+    trade_offer_title:'➕ Propose a trade', trade_offer_btn:'+ Propose a trade',
     // Guide
-    guide_title: 'How it works',
-    guide_sub: 'Everything you need to know to use Vertex Hub',
-    faq_title: 'FAQ',
-    faq_sub: 'Frequently asked questions',
-    // Chat
-    chat_title: '💬 Conversations',
-    chat_placeholder: 'Write a message...',
-    chat_offer_btn: '💰 Offer',
-    chat_empty: 'Select a conversation',
-    chat_no_rooms: 'Click on a UGC to start a conversation',
+    guide_title:'How it works', guide_sub:'Everything you need to know to use Vertex Hub',
+    faq_title:'FAQ', faq_sub:'Frequently asked questions',
     // Auction
-    auction_title: '🔨 Live Auctions',
-    auction_sub: 'Auction your UGC — payment via official Roblox Game Pass',
-    auction_create_btn: '+ Create auction',
-    auction_bid_btn: '🔨 Place bid',
-    auction_gamepass_btn: '🎮 Buy Game Pass',
-    auction_empty: 'No auctions running',
-    auction_ended: '🔴 Ended',
-    // Common
-    btn_quitter: 'Leave',
-    filter_all: 'All',
-    filter_hat: 'Hat',
-    filter_face: 'Face',
-    filter_acc: 'Accessory',
-    filter_clothes: 'Clothing',
-    sort_recent: 'Most recent',
-    sort_price_asc: 'Price: low to high',
-    sort_price_desc: 'Price: high to low',
+    auction_title:'🔨 Live Auctions', auction_sub:'Auction your UGC — payment via official Roblox Game Pass',
+    auction_create_btn:'+ Create auction', auction_form_title:'🔨 New Auction',
+    auction_ugc_label:'🔍 Your Roblox UGC ID or URL', auction_start_label:'Starting price (R$)',
+    auction_minbid_label:'Min. bid increment (R$)', auction_duration_label:'Duration',
+    auction_gp_label:'Roblox Game Pass link', auction_launch_btn:'🔨 Start auction',
+    dur_5m:'5 minutes', dur_10m:'10 minutes', dur_30m:'30 minutes', dur_1h:'1 hour', dur_24h:'24 hours',
+    // Footer
+    footer_tagline:'The Roblox hub of the RealBlue community',
+    footer_copy:'© 2025 Vertex Hub — RealBlue Community',
   }
 };
 
@@ -3945,10 +3865,10 @@ function applyLang(lang) {
   currentLang = lang;
   const t = TRANSLATIONS[lang] || TRANSLATIONS['fr'];
 
-  // Apply data-i18n elements
+  // Apply all data-i18n text elements
   document.querySelectorAll('[data-i18n]').forEach(el => {
     const key = el.getAttribute('data-i18n');
-    if (t[key]) el.textContent = t[key];
+    if (t[key] !== undefined) el.textContent = t[key];
   });
 
   // Apply placeholders
