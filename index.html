@@ -2030,8 +2030,7 @@ transition:all 0.2s;
           <div class="faq-a" id="fa-body-f6">Va sur roblox.com → Créer → Game Passes → Nouveau Game Pass. Mets le nom de ton UGC et le prix final de l'enchère. Roblox prend 30% donc si tu veux recevoir 700 R$, mets le prix à 1000 R$. Une fois créé, copie le lien et envoie-le au gagnant.</div>
         </div>
       </div>
-
-
+    </div>
 
     <!-- ══ ENCHERES ══ -->
     <div class="tab-panel" id="panel-auction">
@@ -2800,31 +2799,48 @@ async function generateGFX() {
   document.getElementById('gfxLoading').style.display = 'flex';
   document.getElementById('promptResult').classList.remove('show');
 
-  try {
-    const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${key}` },
-      body: JSON.stringify({
-        model: 'llama3-8b-8192',
-        max_tokens: 200,
-        messages: [
-          { role: 'system', content: 'You are an expert at writing image generation prompts for Roblox GFX. Respond ONLY with the prompt in English, no explanation.' },
-          { role: 'user', content: `Write a detailed image generation prompt for a Roblox ${type}. Style: ${selectedStyle}. Description: ${desc}. Max 100 words, just the prompt.` }
-        ]
-      })
-    });
-    const data = await res.json();
-    const prompt = data.choices?.[0]?.message?.content?.trim();
-    if (!prompt) throw new Error('No response');
+  // Proxies CORS pour contourner le blocage navigateur
+  const proxies = [
+    'https://corsproxy.io/?url=',
+    'https://api.allorigins.win/raw?url=',
+  ];
+  const groqUrl = 'https://api.groq.com/openai/v1/chat/completions';
+  const body = JSON.stringify({
+    model: 'llama3-8b-8192',
+    max_tokens: 200,
+    messages: [
+      { role: 'system', content: 'You are an expert at writing image generation prompts for Roblox GFX. Respond ONLY with the prompt in English, no explanation.' },
+      { role: 'user', content: `Write a detailed image generation prompt for a Roblox ${type}. Style: ${selectedStyle}. Description: ${desc}. Max 100 words, just the prompt.` }
+    ]
+  });
 
-    document.getElementById('gfxLoading').style.display = 'none';
+  let prompt = null;
+  let lastError = '';
+
+  // Try direct first (works if Groq enables CORS for this key)
+  const attempts = [
+    () => fetch(groqUrl, { method:'POST', headers:{'Content-Type':'application/json','Authorization':`Bearer ${key}`}, body }),
+    ...proxies.map(proxy => () => fetch(proxy + encodeURIComponent(groqUrl), { method:'POST', headers:{'Content-Type':'application/json','Authorization':`Bearer ${key}`}, body }))
+  ];
+
+  for (const attempt of attempts) {
+    try {
+      const res = await attempt();
+      const data = await res.json();
+      const text = data.choices?.[0]?.message?.content?.trim();
+      if (text) { prompt = text; break; }
+      if (data.error) { lastError = data.error.message || 'Clé invalide'; break; }
+    } catch(e) { lastError = e.message; continue; }
+  }
+
+  document.getElementById('gfxLoading').style.display = 'none';
+  if (prompt) {
     document.getElementById('promptText').textContent = prompt;
     document.getElementById('promptResult').classList.add('show');
     toast('✅ Prompt généré !', 'ok');
-  } catch(e) {
-    document.getElementById('gfxLoading').style.display = 'none';
+  } else {
     document.getElementById('gfxPlaceholder').style.display = 'block';
-    toast('❌ Erreur — Vérifie ta clé Groq', 'err');
+    toast('❌ ' + (lastError || 'Erreur Groq — vérifie ta clé'), 'err');
   }
 }
 
