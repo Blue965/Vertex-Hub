@@ -2806,7 +2806,7 @@ async function generateGFX() {
   ];
   const groqUrl = 'https://api.groq.com/openai/v1/chat/completions';
   const body = JSON.stringify({
-    model: 'llama3-8b-8192',
+    model: 'llama-3.3-70b-versatile',
     max_tokens: 200,
     messages: [
       { role: 'system', content: 'You are an expert at writing image generation prompts for Roblox GFX. Respond ONLY with the prompt in English, no explanation.' },
