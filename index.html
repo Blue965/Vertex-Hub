@@ -1455,26 +1455,26 @@ transition:all 0.2s;
     </div>
     <div class="topbar-nav">
       <button class="nav-tab active" onclick="switchTab('market')" id="tab-market">
-        🛒 <span>Marché UGC</span>
+        🛒 <span data-i18n="nav_market">Marché UGC</span>
       </button>
       <button class="nav-tab" onclick="switchTab('gfx')" id="tab-gfx">
-        <span class="nav-icon">🎨</span> <span>GFX IA</span>
+        <span class="nav-icon">🎨</span> <span data-i18n="nav_gfx">GFX IA</span>
       </button>
       <button class="nav-tab" onclick="switchTab('tools')" id="tab-tools">
-        <span class="nav-icon">🔧</span> <span>Outils</span>
+        <span class="nav-icon">🔧</span> <span data-i18n="nav_tools">Outils</span>
       </button>
       <button class="nav-tab" onclick="switchTab('trade')" id="tab-trade">
-        <span class="nav-icon">🔄</span> <span>Échanges</span>
+        <span class="nav-icon">🔄</span> <span data-i18n="nav_trade">Échanges</span>
       </button>
       <button class="nav-tab" onclick="switchTab('guide')" id="tab-guide">
-        <span class="nav-icon">📖</span> <span>Guide</span>
+        <span class="nav-icon">📖</span> <span data-i18n="nav_guide">Guide</span>
       </button>
       <button class="nav-tab" onclick="switchTab('chat')" id="tab-chat">
-        <span class="nav-icon">💬</span> <span>Chat</span>
+        <span class="nav-icon">💬</span> <span data-i18n="nav_chat">Chat</span>
         <span class="chat-notif" id="chatNotifBadge" style="display:none;">●</span>
       </button>
       <button class="nav-tab" onclick="switchTab('auction')" id="tab-auction">
-        <span class="nav-icon">🔨</span> <span>Enchères</span>
+        <span class="nav-icon">🔨</span> <span data-i18n="nav_auction">Enchères</span>
       </button>
     </div>
     <div class="topbar-user" style="position:relative;">
@@ -2360,8 +2360,6 @@ transition:all 0.2s;
           <div class="cs-list">
             <div class="cs-option active" data-value="fr" onclick="csSelect('cs-lang','fr','🇫🇷 Français',changeLang)">🇫🇷 Français</div>
             <div class="cs-option" data-value="en" onclick="csSelect('cs-lang','en','🇬🇧 English',changeLang)">🇬🇧 English</div>
-            <div class="cs-option" data-value="es" onclick="csSelect('cs-lang','es','🇪🇸 Español',changeLang)">🇪🇸 Español</div>
-            <div class="cs-option" data-value="pt" onclick="csSelect('cs-lang','pt','🇧🇷 Português',changeLang)">🇧🇷 Português</div>
             <div class="cs-option" data-value="de" onclick="csSelect('cs-lang','de','🇩🇪 Deutsch',changeLang)">🇩🇪 Deutsch</div>
           </div>
         </div>
@@ -3746,6 +3744,8 @@ function startAuctionListeners() {
 
 // ══ FOOTER ══
 document.getElementById('footerYear').textContent = new Date().getFullYear();
+  const savedLang = localStorage.getItem('vx_lang') || 'fr';
+  if (savedLang !== 'fr') { csSelect('cs-lang', savedLang, savedLang === 'en' ? '🇬🇧 English' : '🇫🇷 Français', changeLang); }
 
 function showFooter() {
   document.getElementById('mainFooter').style.display = 'block';
@@ -3753,15 +3753,266 @@ function showFooter() {
 
 function changeLang() {
   const lang = csGetValue('cs-lang');
-  const msgs = {
-    fr: 'Langue changée en Français 🇫🇷',
-    en: 'Language changed to English 🇬🇧',
-    es: 'Idioma cambiado a Español 🇪🇸',
-    pt: 'Idioma alterado para Português 🇧🇷',
-    de: 'Sprache auf Deutsch geändert 🇩🇪',
-  };
-  toast(msgs[lang] || 'Langue mise à jour', 'ok');
+  applyLang(lang);
+  localStorage.setItem('vx_lang', lang);
+  toast(lang === 'en' ? '🇬🇧 English' : '🇫🇷 Français', 'ok');
 }
+
+const TRANSLATIONS = {
+  fr: {
+    // Nav
+    nav_market: 'Marché UGC',
+    nav_gfx: 'GFX IA',
+    nav_tools: 'Outils',
+    nav_trade: 'Échanges',
+    nav_guide: 'Guide',
+    nav_chat: 'Chat',
+    nav_auction: 'Enchères',
+    // Market
+    market_title: 'Marché UGC',
+    market_sub: 'Achète et revends tes UGC Roblox avec la communauté',
+    market_search: 'Rechercher un UGC...',
+    market_sell_btn: '+ Vendre un UGC',
+    market_form_title: '➕ Mettre en vente',
+    market_id_label: '🔍 ID de ton UGC Roblox',
+    market_search_btn: 'Rechercher',
+    market_price_label: 'Prix de vente (Robux)',
+    market_publish_btn: "📤 Publier l'annonce",
+    market_cancel: 'Annuler',
+    market_contact: 'Contacter',
+    market_remove: 'Retirer',
+    market_empty: 'Aucun UGC en vente pour le moment',
+    // GFX
+    gfx_title: 'Générateur GFX IA',
+    gfx_sub: 'Génère des prompts optimisés pour tes créations Roblox',
+    gfx_type_thumb: 'Thumbnail',
+    gfx_type_banner: 'Bannière',
+    gfx_type_logo: 'Logo',
+    gfx_type_icon: 'Icône',
+    gfx_desc_label: 'Décris ton GFX',
+    gfx_desc_placeholder: 'ex: personnage Roblox avec épée de feu dans une forêt sombre...',
+    gfx_key_label: 'Clé Groq API',
+    gfx_key_placeholder: 'gsk_...',
+    gfx_generate_btn: '✨ Générer le prompt',
+    gfx_copy_btn: '📋 Copier le prompt',
+    gfx_placeholder_text: 'Ton prompt GFX apparaîtra ici',
+    // Tools
+    tools_title: 'Outils Roblox',
+    tools_sub: 'Calculateurs et utilitaires pour la communauté',
+    tools_robux_eur: 'Robux → Euros',
+    tools_eur_robux: 'Euros → Robux',
+    tools_devex: 'DevEx Calculator',
+    tools_commission: 'Commission UGC (30%)',
+    tools_timer: 'Minuteur de jeu',
+    tools_pseudo: 'Générateur de pseudos',
+    tools_convert_btn: 'Convertir',
+    tools_calc_btn: 'Calculer',
+    tools_start_btn: '▶ Démarrer',
+    tools_stop_btn: '⏸ Pause',
+    tools_reset_btn: '↺ Reset',
+    tools_generate_btn: 'Générer',
+    // Trade
+    trade_title: 'Échanges UGC',
+    trade_sub: "Échange tes items contre des Robux ou d'autres UGC",
+    trade_offer_btn: '+ Proposer un échange',
+    trade_contact: 'Contacter',
+    trade_cancel: 'Annuler',
+    trade_empty: 'Aucun échange proposé',
+    // Guide
+    guide_title: 'Comment ça marche',
+    guide_sub: 'Tout ce que tu dois savoir pour utiliser Vertex Hub',
+    faq_title: 'FAQ',
+    faq_sub: 'Questions fréquentes',
+    // Chat
+    chat_title: '💬 Conversations',
+    chat_placeholder: 'Écris un message...',
+    chat_offer_btn: '💰 Offre',
+    chat_empty: 'Sélectionne une conversation',
+    chat_no_rooms: 'Clique sur un UGC pour démarrer une conversation',
+    // Auction
+    auction_title: '🔨 Enchères Live',
+    auction_sub: 'Mets tes UGC aux enchères — paiement via Game Pass officiel Roblox',
+    auction_create_btn: '+ Créer une enchère',
+    auction_bid_btn: '🔨 Enchérir',
+    auction_gamepass_btn: '🎮 Acheter le Game Pass',
+    auction_empty: 'Aucune enchère en cours',
+    auction_ended: '🔴 Terminée',
+    // Common
+    btn_quitter: 'Quitter',
+    filter_all: 'Tous',
+    filter_hat: 'Chapeau',
+    filter_face: 'Visage',
+    filter_acc: 'Accessoire',
+    filter_clothes: 'Vêtement',
+    sort_recent: 'Plus récent',
+    sort_price_asc: 'Prix croissant',
+    sort_price_desc: 'Prix décroissant',
+  },
+  en: {
+    // Nav
+    nav_market: 'UGC Market',
+    nav_gfx: 'AI GFX',
+    nav_tools: 'Tools',
+    nav_trade: 'Trades',
+    nav_guide: 'Guide',
+    nav_chat: 'Chat',
+    nav_auction: 'Auctions',
+    // Market
+    market_title: 'UGC Market',
+    market_sub: 'Buy and resell your Roblox UGC with the community',
+    market_search: 'Search a UGC...',
+    market_sell_btn: '+ Sell a UGC',
+    market_form_title: '➕ List for sale',
+    market_id_label: '🔍 Your Roblox UGC ID',
+    market_search_btn: 'Search',
+    market_price_label: 'Selling price (Robux)',
+    market_publish_btn: '📤 Publish listing',
+    market_cancel: 'Cancel',
+    market_contact: 'Contact',
+    market_remove: 'Remove',
+    market_empty: 'No UGC listed yet',
+    // GFX
+    gfx_title: 'AI GFX Generator',
+    gfx_sub: 'Generate optimized prompts for your Roblox creations',
+    gfx_type_thumb: 'Thumbnail',
+    gfx_type_banner: 'Banner',
+    gfx_type_logo: 'Logo',
+    gfx_type_icon: 'Icon',
+    gfx_desc_label: 'Describe your GFX',
+    gfx_desc_placeholder: 'ex: Roblox character with fire sword in a dark forest...',
+    gfx_key_label: 'Groq API Key',
+    gfx_key_placeholder: 'gsk_...',
+    gfx_generate_btn: '✨ Generate prompt',
+    gfx_copy_btn: '📋 Copy prompt',
+    gfx_placeholder_text: 'Your GFX prompt will appear here',
+    // Tools
+    tools_title: 'Roblox Tools',
+    tools_sub: 'Calculators and utilities for the community',
+    tools_robux_eur: 'Robux → Euros',
+    tools_eur_robux: 'Euros → Robux',
+    tools_devex: 'DevEx Calculator',
+    tools_commission: 'UGC Commission (30%)',
+    tools_timer: 'Game Timer',
+    tools_pseudo: 'Username Generator',
+    tools_convert_btn: 'Convert',
+    tools_calc_btn: 'Calculate',
+    tools_start_btn: '▶ Start',
+    tools_stop_btn: '⏸ Pause',
+    tools_reset_btn: '↺ Reset',
+    tools_generate_btn: 'Generate',
+    // Trade
+    trade_title: 'UGC Trades',
+    trade_sub: 'Trade your items for Robux or other UGC',
+    trade_offer_btn: '+ Propose a trade',
+    trade_contact: 'Contact',
+    trade_cancel: 'Cancel',
+    trade_empty: 'No trades proposed yet',
+    // Guide
+    guide_title: 'How it works',
+    guide_sub: 'Everything you need to know to use Vertex Hub',
+    faq_title: 'FAQ',
+    faq_sub: 'Frequently asked questions',
+    // Chat
+    chat_title: '💬 Conversations',
+    chat_placeholder: 'Write a message...',
+    chat_offer_btn: '💰 Offer',
+    chat_empty: 'Select a conversation',
+    chat_no_rooms: 'Click on a UGC to start a conversation',
+    // Auction
+    auction_title: '🔨 Live Auctions',
+    auction_sub: 'Auction your UGC — payment via official Roblox Game Pass',
+    auction_create_btn: '+ Create auction',
+    auction_bid_btn: '🔨 Place bid',
+    auction_gamepass_btn: '🎮 Buy Game Pass',
+    auction_empty: 'No auctions running',
+    auction_ended: '🔴 Ended',
+    // Common
+    btn_quitter: 'Leave',
+    filter_all: 'All',
+    filter_hat: 'Hat',
+    filter_face: 'Face',
+    filter_acc: 'Accessory',
+    filter_clothes: 'Clothing',
+    sort_recent: 'Most recent',
+    sort_price_asc: 'Price: low to high',
+    sort_price_desc: 'Price: high to low',
+  }
+};
+
+let currentLang = 'fr';
+
+function applyLang(lang) {
+  currentLang = lang;
+  const t = TRANSLATIONS[lang] || TRANSLATIONS['fr'];
+
+  // Apply data-i18n elements
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (t[key]) el.textContent = t[key];
+  });
+
+  // Apply placeholders
+  document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+    const key = el.getAttribute('data-i18n-placeholder');
+    if (t[key]) el.placeholder = t[key];
+  });
+
+  // Dynamic sections
+  const market_title = document.querySelector('#panel-market .section-title');
+  const market_sub = document.querySelector('#panel-market .section-sub');
+  if (market_title) market_title.textContent = t.market_title;
+  if (market_sub) market_sub.textContent = t.market_sub;
+
+  const gfx_title = document.querySelector('#panel-gfx .section-title');
+  const gfx_sub = document.querySelector('#panel-gfx .section-sub');
+  if (gfx_title) gfx_title.textContent = t.gfx_title;
+  if (gfx_sub) gfx_sub.textContent = t.gfx_sub;
+
+  const tools_title = document.querySelector('#panel-tools .section-title');
+  const tools_sub = document.querySelector('#panel-tools .section-sub');
+  if (tools_title) tools_title.textContent = t.tools_title;
+  if (tools_sub) tools_sub.textContent = t.tools_sub;
+
+  const trade_title = document.querySelector('#panel-trade .section-title');
+  const trade_sub = document.querySelector('#panel-trade .section-sub');
+  if (trade_title) trade_title.textContent = t.trade_title;
+  if (trade_sub) trade_sub.textContent = t.trade_sub;
+
+  const guide_title = document.querySelector('#panel-guide .section-title');
+  const guide_sub = document.querySelector('#panel-guide .section-sub');
+  if (guide_title) guide_title.textContent = t.guide_title;
+  if (guide_sub) guide_sub.textContent = t.guide_sub;
+
+  const auction_title = document.querySelector('#panel-auction .section-title');
+  const auction_sub = document.querySelector('#panel-auction .section-sub');
+  if (auction_title) auction_title.textContent = t.auction_title;
+  if (auction_sub) auction_sub.textContent = t.auction_sub;
+
+  // Buttons
+  const auctionCreateBtn = document.getElementById('auctionFormToggle');
+  if (auctionCreateBtn && !auctionCreateBtn.classList.contains('open')) {
+    auctionCreateBtn.textContent = t.auction_create_btn;
+  }
+
+  // Search placeholder
+  const searchInput = document.getElementById('ugcSearch');
+  if (searchInput) searchInput.placeholder = t.market_search;
+
+  // Chat input
+  const chatMsgInput = document.getElementById('chatMsgInput');
+  if (chatMsgInput) chatMsgInput.placeholder = t.chat_placeholder;
+
+  // Chat sidebar title
+  const chatSidebarHead = document.querySelector('.chat-sidebar-head');
+  if (chatSidebarHead) chatSidebarHead.textContent = t.chat_title;
+
+  // Logout btn
+  document.querySelectorAll('.logout-btn').forEach(b => b.textContent = t.btn_quitter);
+
+  // Save lang
+  document.documentElement.lang = lang;
+}
+
 
 // ══ TRADE ══
 let trades = JSON.parse(localStorage.getItem('vx_trades') || '[]');
